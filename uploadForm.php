@@ -1,4 +1,5 @@
-
+<?php include "includes/functions.php"; ?>
+<?php parseCSV(); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +9,7 @@
     <title>Pivot, Inc.</title>
 </head>
 <body>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
+    <form action="uploadForm.php" method="post" enctype="multipart/form-data">
         <input type="file" name="csv" required />
         <input type="submit" name="submit" value="Submit" />
     </form>
