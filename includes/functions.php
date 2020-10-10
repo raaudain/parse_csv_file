@@ -35,7 +35,7 @@ function parseCSV() {
                 $data = mysqli_query($connection, $query);
                 
                 // Error handling
-                if (!$data) die(mysqli_error($connection));
+                if (!$data) die(mysqli_error("Connection failed: " . mysqli_error($connection)));
             }
             
             // If table does exist...
@@ -48,11 +48,45 @@ function parseCSV() {
                 $data = mysqli_query($connection, $query);
                 
                 // Error handling
-                if (!$data) die(mysqli_error($connection));
+                if (!$data) die("Connection failed: " . mysqli_error($connection));
             }
         
             $table_created = true;
         }
+    }
+}
+
+function registerUser() {
+    if (isset($_POST["submit"])) {
+        global $connection;
+
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+
+        // Sanitizes inputs in fields
+        $username = mysqli_escape_string($connection, $username);
+        $password = mysqli_escape_string($connection, $password);
+
+        // Encrypting password
+        $hashFormat = "$2y$10$";
+        $salt = "thisiscrazycool";
+        $hash_and_salt = $hashFormat . $salt;
+
+        // Password is now encrypted
+        $password = crypt($password, $hash_and_salt);
+
+        // Inserts into columns in users table
+        $query = "CREATE TABLE users (
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+            username VARCHAR(128) NOT NULL, 
+            password VARCHAR(128) NOT NULL
+            ) ";
+        $query .= "INSERT INTO users (username, password) ";
+        $query .= "VALUES ('$username', '$password');";
+
+        $result = mysqli_query($connection, $query);
+    
+        if (!$result) die("Connection failed: " . mysqli_error($connection));
     }
 }
 
