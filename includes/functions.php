@@ -75,18 +75,26 @@ function registerUser() {
         // Password is now encrypted
         $password = crypt($password, $hash_and_salt);
 
-        // Inserts into columns in users table
-        $query = "CREATE TABLE users (
+        // Creates table if on does exist
+        $table = "CREATE TABLE IF NOT EXISTS users (
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
             username VARCHAR(128) NOT NULL, 
             password VARCHAR(128) NOT NULL
             ) ";
-        $query .= "INSERT INTO users (username, password) ";
+
+        $createTable = mysqli_query($connection, $table);
+        
+        // Error handling for table creation
+        if (!$createTable) die("Error creating table: " . mysqli_error($connection));
+
+        // Insert values into table
+        $query = "INSERT INTO users (username, password) ";
         $query .= "VALUES ('$username', '$password');";
 
         $result = mysqli_query($connection, $query);
-    
-        if (!$result) die("Connection failed: " . mysqli_error($connection));
+
+        // Error handling for inserting values
+        if (!$result) die("Connection error: " . mysqli_error($connection));
     }
 }
 
