@@ -40,7 +40,7 @@ function parseCSV() {
             
             // If table does exist...
             else {
-                // Inserts into columns in users table
+                // Inserts into columns in table
                 $query = "INSERT INTO $table ($date, $invoice_num, $po_num, $address, $sales_tax, $discount, $comments) ";
                 $query .= "VALUES ('$content[0]', '$content[1]', '$content[2]', '$content[3]', '$content[4]', '$content[5]', '$content[6]');";
                 
