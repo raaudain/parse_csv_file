@@ -3,12 +3,18 @@
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "csv_db";
 
-// Connect to server
-$connection = mysqli_connect($host, $username, $password, $database);
+// Create connection
+$connection = mysqli_connect($host, $username, $password);
 
 // Error handling
-if (!$connection) die("Database connection failed");
+if (!$connection) die("Connection failed: " . mysqli_error($connection));
+
+// Create database
+$database = "CREATE DATABASE IF NOT EXISTS csv_db";
+
+$data = mysqli_query($connection, $database);
+
+if (!$data) die("Error creating database: " . mysqli_error($connection));
 
 ?>
