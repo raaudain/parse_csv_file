@@ -1,3 +1,4 @@
+<?php include "includes/db.php" ?>
 <?php  ?>
 
 <!DOCTYPE html>
@@ -8,7 +9,7 @@
     <title>Pivot, Inc - Log In</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="index.php" method="post">
         <div>
             <label for="username">Username</label>
             <input type="text" name="username">

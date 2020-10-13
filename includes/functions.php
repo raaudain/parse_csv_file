@@ -69,7 +69,7 @@ function registerUser() {
 
         // Encrypting password
         $hashFormat = "$2y$10$";
-        $salt = "thisiscrazycool";
+        $salt = "thisiscrazycool8384";
         $hash_and_salt = $hashFormat . $salt;
 
         // Password is now encrypted
@@ -97,5 +97,7 @@ function registerUser() {
         if (!$result) die("Connection error: " . mysqli_error($connection));
     }
 }
+
+
 
 ?>
